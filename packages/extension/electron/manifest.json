@@ -1,0 +1,34 @@
+{
+  "manifest_version": 2,
+  "name": "Mobx Devtools",
+  "description": "Devtools for Mobx",
+  "version": "1.0.0",
+  "icons": {
+    "16": "dist/logo.png",
+    "32": "dist/logo.png",
+    "48": "dist/logo.png",
+    "128": "dist/logo.png"
+  },
+  "permissions": ["storage"],
+  "background": {
+    "scripts": ["dist/background/index.js"]
+  },
+  "content_security_policy": "script-src 'self'; object-src 'self'",
+  "devtools_page": "dist/dev/index.html",
+  "web_accessible_resources": [
+    "dist/backend/proxy.js",
+    "dist/frontend/index.js"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["dist/installHook/index.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["dist/proxy/index.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "mobx-devtool",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "example": "pnpm --filter \"./examples/**\" --parallel run example",
+    "dev": "pnpm --filter \"./packages/**\" --parallel run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

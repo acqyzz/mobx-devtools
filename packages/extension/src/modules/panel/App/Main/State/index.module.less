@@ -1,0 +1,38 @@
+.state {
+  display: flex;
+  height: 100%;
+}
+
+.left {
+  flex-basis: 260px;
+  height: calc(100vh - 47px);
+  overflow: auto;
+  :global {
+    .ant-menu {
+      height: 100%;
+    }
+    .ant-menu-item {
+      max-width: 260px;
+    }
+  }
+}
+
+.right {
+  flex: 1;
+  height: calc(100vh - 46px - 8px);
+  overflow: auto;
+}
+
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  .emptyIcon {
+    color: var(--theme-color);
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+}

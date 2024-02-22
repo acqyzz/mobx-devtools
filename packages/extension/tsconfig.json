@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["esnext", "dom"],
+    "sourceMap": true,
+    "baseUrl": "./",
+    "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "dev/*": ["./src/modules/dev/*"],
+      "background/*": ["./src/modules/background/*"],
+      "content/*": ["./src/modules/backend/*"],
+      "panel/*": ["./src/modules/panel/*"],
+      "images/*": ["./src/images/*"],
+      "types/*": ["./src/types/*"],
+      "types": ["./src/types"],
+      "components/*": ["./src/components/*"],
+      "@styles/*": ["./src/styles/*"],
+      "utils/*": ["./src/utils/*"]
+    }
+  },
+  "include": ["src/**/*", "global.d.ts"],
+
+  "exclude": ["node_modules", "dist", "scripts"]
+}

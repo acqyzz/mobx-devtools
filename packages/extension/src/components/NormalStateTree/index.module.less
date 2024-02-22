@@ -1,0 +1,46 @@
+.stateTree {
+  height: 100%;
+  padding: 12px 6px;
+}
+
+.node {
+  display: block;
+}
+
+.nodeInput {
+  width: 600px;
+}
+
+.editNode {
+  display: flex;
+  align-items: center;
+}
+
+.editNodeLabel {
+  margin-right: 6px;
+}
+
+.previewNode {
+  min-width: 180px;
+  &:hover {
+    .deleteIcon,
+    .editIcon,
+    .addIcon {
+      display: inline;
+    }
+  }
+  .previewLabel {
+    margin-right: 80px;
+  }
+  .addIcon {
+    display: none;
+    margin-right: 8px;
+  }
+  .editIcon {
+    display: none;
+    margin-right: 8px;
+  }
+  .deleteIcon {
+    display: none;
+  }
+}

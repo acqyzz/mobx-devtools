@@ -1,0 +1,2 @@
+- feat: P2 production mode
+- feat: P2 support custom config MAX_CHANGES_LENGTH
