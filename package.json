@@ -7,6 +7,6 @@
     "dev": "pnpm --filter \"./packages/**\" --parallel run dev"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "qyzz",
+  "license": "MIT"
 }

@@ -19,8 +19,8 @@
     "devtool",
     "devtools"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "qyzz",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.23.6",
     "@babel/plugin-proposal-decorators": "^7.23.6",

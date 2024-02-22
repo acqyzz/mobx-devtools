@@ -16,8 +16,8 @@
     "devtools",
     "state"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "qyzz",
+  "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.21"
   },
