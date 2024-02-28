@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./index.module.less";
 import { formatTime } from "utils/format";
 import { Change } from "types/change";
@@ -11,7 +11,7 @@ interface ChangeItemProps {
   style?: React.CSSProperties;
 }
 
-export const ChangeItem = (props: ChangeItemProps) => {
+export const ChangeItem = memo((props: ChangeItemProps) => {
   const { change, style } = props;
   return (
     <div className={styles.changeItem} style={{ ...style }}>
@@ -44,4 +44,4 @@ export const ChangeItem = (props: ChangeItemProps) => {
       </Tooltip>
     </div>
   );
-};
+});
