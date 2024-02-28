@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "mobx devtool extension",
   "scripts": {
-    "build": "concurrently pnpm:build-*",
+    "dev": "concurrently npm:dev-*",
+    "build": "concurrently npm:build-*",
     "dev-chrome": "RUN_ENV=CHROME webpack -c ./scripts/webpack.config.dev.js",
     "dev-firefox": "RUN_ENV=FIREFOX webpack -c ./scripts/webpack.config.dev.js",
     "dev-edge": "RUN_ENV=EDGE webpack -c ./scripts/webpack.config.dev.js",
@@ -11,8 +12,7 @@
     "build-chrome": "RUN_ENV=CHROME webpack -c ./scripts/webpack.config.prod.js",
     "build-firefox": "RUN_ENV=FIREFOX webpack -c ./scripts/webpack.config.prod.js",
     "build-edge": "RUN_ENV=EDGE webpack -c ./scripts/webpack.config.prod.js",
-    "build-electron": "RUN_ENV=ELECTRON webpack -c ./scripts/webpack.config.prod.js",
-    "dev": "concurrently pnpm:dev-*"
+    "build-electron": "RUN_ENV=ELECTRON webpack -c ./scripts/webpack.config.prod.js"
   },
   "keywords": [
     "mobx",

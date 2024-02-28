@@ -38,7 +38,10 @@ const registerMobxListener = () => {
   }
 
   if (window.__MOBX_DEVTOOL_STORES__.onAdd) {
-    window.__MOBX_DEVTOOL_STORES__.onAdd((key, store) => {
+    window.__MOBX_DEVTOOL_STORES__.onAdd((key) => {
+      if (!key) {
+        return;
+      }
       frontendSender(ASYNC_MESSAGE.CREATE_STORE, {
         to: "panel",
         request: {
@@ -57,13 +60,15 @@ const registerMobxListener = () => {
 
   if (window.__MOBX_DEVTOOL_STORES__) {
     const keys = Object.keys(window.__MOBX_DEVTOOL_STORES__);
-    frontendSender(ASYNC_MESSAGE.CREATE_STORE, {
-      to: "panel",
-      request: {
-        key: keys,
-        nickname: keys.map(getMobxStoreNameByKey),
-      },
-    });
+    if (keys.length !== 0) {
+      frontendSender(ASYNC_MESSAGE.CREATE_STORE, {
+        to: "panel",
+        request: {
+          key: keys,
+          nickname: keys.map(getMobxStoreNameByKey),
+        },
+      });
+    }
     // keys.forEach((key) => {
     //   findSubStoreName(key, window.__MOBX_DEVTOOL_STORES__[key]);
     // });

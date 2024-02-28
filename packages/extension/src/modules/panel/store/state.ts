@@ -92,7 +92,7 @@ class StateStore {
   };
 
   onGetLeaf = async (storeName: string, path: string[]) => {
-    if (!this.originState[storeName]) {
+    if (!this.originState[storeName] || !storeName) {
       panelLogger.warn`receive empty get leaf storeName ${storeName}`;
       return;
     }
@@ -177,19 +177,14 @@ class StateStore {
       if (this.currentStateName) {
         this.onGetLeaf(this.currentStateName, []);
       }
-      // panelSender(ASYNC_MESSAGE.GET_DATA_BY_PATH, {
-      //   to: "frontend",
-      //   request: {
-      //     path: [],
-      //     storeName: this.currentStateName,
-      //   },
-      // });
-      // this.stateVisitedPath.set(this.currentStateName, [[]]);
     }
   };
 
   updateWholeState = async () => {
-    const { currentStateName, stateVisitedPath } = this;
+    const { curState, currentStateName, stateVisitedPath } = this;
+    if (!curState) {
+      return;
+    }
     // update whole single mobx store
     const result = await panelSender(ASYNC_MESSAGE.GET_TREE_DATA_BY_PATHS, {
       to: "frontend",
