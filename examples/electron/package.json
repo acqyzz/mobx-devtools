@@ -39,7 +39,6 @@
     "patch-obj": "workspace:*",
     "thread-loader": "^4.0.2",
     "typescript": "^5.3.3",
-    "typescript-plugin-css-modules-less": "workspace:*",
     "url-loader": "^4.1.1",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"

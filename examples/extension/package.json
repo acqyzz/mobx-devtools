@@ -28,10 +28,10 @@
     "less": "^4.2.0",
     "less-loader": "^11.1.3",
     "mobx": "^6.12.0",
+    "mobx-devtool-register": "workspace:*",
+    "patch-obj": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "patch-obj": "workspace:*",
-    "mobx-devtool-register": "workspace:*",
     "style-loader": "^3.3.3",
     "thread-loader": "^4.0.2",
     "typescript": "^5.3.3",
@@ -42,7 +42,9 @@
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "mitt": "^3.0.1",
+    "mobx-devtools-mst": "^0.9.30",
     "mobx-react-lite": "^4.0.5",
+    "mobx-state-tree": "^5.4.1",
     "rc-tabs": "^12.15.0"
   }
 }
