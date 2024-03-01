@@ -4,6 +4,9 @@
  *       function in some places and inject the source into the page.
  */
 
+import { HOOK_EVENT } from "types/hookEvents";
+import { installStoreHook } from "./installStoreHook";
+
 export default function installGlobalHook(window) {
   if (
     window.__MOBX_DEVTOOLS_GLOBAL_HOOK__ &&
@@ -99,7 +102,8 @@ export default function installGlobalHook(window) {
               }
             }
           }
-        if (injectedProps.length > 0) this.emit("instances-injected", mobxid);
+        if (injectedProps.length > 0)
+          this.emit(HOOK_EVENT.INSTANCES_INJECTED, mobxid);
       },
       injectMobx(mobx) {
         this.inject({ mobx });
@@ -140,4 +144,5 @@ export default function installGlobalHook(window) {
       },
     },
   });
+  installStoreHook(window.__MOBX_DEVTOOLS_GLOBAL_HOOK__);
 }

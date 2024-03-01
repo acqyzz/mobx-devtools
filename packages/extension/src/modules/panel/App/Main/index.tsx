@@ -8,15 +8,13 @@ import { ACTIVE_KEY, appStore } from "panel/store/app";
 import { observer } from "mobx-react-lite";
 
 export const Main = observer(() => {
-  const { isStateTreeDisabled, debugStatus, curActiveKey, updateActiveKey } =
-    appStore;
+  const { debugStatus, curActiveKey, updateActiveKey } = appStore;
 
   const items: TabsProps["items"] = [
     {
       label: "State Tree",
       children: <State />,
       key: ACTIVE_KEY.STATE_TREE,
-      disabled: isStateTreeDisabled,
     },
     {
       label: "Changes",

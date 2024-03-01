@@ -14,7 +14,6 @@ class AppStore {
     onDebugStatusChange(
       action((status: CheckerStatus) => {
         this.debugStatus = status;
-        // this.updateValidActiveKey();
       })
     );
     panelLogger.info`AppStore init by debugStatus: ${this.debugStatus}`;
@@ -22,31 +21,11 @@ class AppStore {
   waitingForDebug = false;
   debugStatus: CheckerStatus = {
     reportStatus: "nagetive",
-    stateStatus: "nagetive",
   };
-  get isStateTreeDisabled() {
-    const { stateItems } = stateStore;
-    return !this.debugStatus.stateStatus || !stateItems.length;
-  }
   get isInDebug() {
-    return (
-      this.debugStatus.reportStatus === "active" ||
-      this.debugStatus.stateStatus === "active"
-    );
+    return this.debugStatus.reportStatus === "active";
   }
   curActiveKey = ACTIVE_KEY.STATE_TREE;
-  // updateValidActiveKey = () => {
-  //   if (this.isStateTreeDisabled) {
-  //     if (this.debugStatus.reportStatus === "active") {
-  //       this.updateActiveKey(ACTIVE_KEY.CHANGES);
-  //     } else {
-  //       // both disabled
-  //       this.updateActiveKey(null);
-  //     }
-  //   } else {
-  //     this.updateActiveKey(ACTIVE_KEY.STATE_TREE);
-  //   }
-  // };
   updateActiveKey = (key: ACTIVE_KEY) => {
     this.curActiveKey = key;
   };

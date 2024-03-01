@@ -1,7 +1,15 @@
+enum HOOK_EVENT {
+  ADD_STORE = "add-store",
+  DELETE_STORE = "delete-store",
+  ON_ADD = "on-add",
+  ON_DELETE = "on-delete",
+  INSTANCES_INJECTED = "instances-injected",
+}
+
 const checkEnv = () => {
-  if (!window.__MOBX_DEVTOOL_STORES__) {
+  if (!window.__MOBX_DEVTOOLS_GLOBAL_HOOK__) {
     console.warn(
-      "[state-register] window.__MOBX_DEVTOOL_STORES__ is empty, please make sure mobx devtool installed"
+      "[state-register] window.__MOBX_DEVTOOLS_GLOBAL_HOOK__ is empty, please make sure mobx devtool installed"
     );
     return false;
   }
@@ -16,7 +24,12 @@ export const registerSingleStore = (
   if (!checkEnv()) {
     return;
   }
-  window.__MOBX_DEVTOOL_STORES__.addStore(name, store, (override = false));
+
+  window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.emit(HOOK_EVENT.ADD_STORE, {
+    name,
+    store,
+    override,
+  });
 };
 
 export const registerStores = (
@@ -37,7 +50,7 @@ export const unregisterSingleStore = (name: string | object) => {
   if (!checkEnv()) {
     return;
   }
-  window.__MOBX_DEVTOOL_STORES__.deleteStore(name);
+  window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.emit(HOOK_EVENT.DELETE_STORE, name);
 };
 
 export const unregisterStores = (name: (string | object)[]) => {

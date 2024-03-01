@@ -5,6 +5,7 @@ import { ASYNC_MESSAGE } from "types/message/message";
 import { registerSpyListener } from "./spyListener";
 import { LIFE_CYCLE } from "types/message/lifecycle";
 import { deleteStoreNameCache, getMobxStoreNameByKey } from "utils/mobx";
+import { HOOK_EVENT } from "types/hookEvents";
 // import { findSubStoreName } from "./spyListener/storeCollection";
 
 const registerMobxListener = () => {
@@ -19,14 +20,18 @@ const registerMobxListener = () => {
     registerSpyListener(collections[key].mobx);
   });
   // register injected mobx
-  window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.on("instances-injected", (mobxid) => {
-    frontendLogger.debug`[registerMobxListener] register ${mobxid} mobx listener`;
-    registerSpyListener(
-      window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.collections[mobxid].mobx
-    );
-  });
-  if (window.__MOBX_DEVTOOL_STORES__.onDelete) {
-    window.__MOBX_DEVTOOL_STORES__.onDelete((key) => {
+  window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.on(
+    HOOK_EVENT.INSTANCES_INJECTED,
+    (mobxid) => {
+      frontendLogger.debug`[registerMobxListener] register ${mobxid} mobx listener`;
+      registerSpyListener(
+        window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.collections[mobxid].mobx
+      );
+    }
+  );
+  window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.sub(
+    HOOK_EVENT.ON_DELETE,
+    ({ name: key }) => {
       frontendSender(ASYNC_MESSAGE.REMOVE_STORE, {
         to: "panel",
         request: {
@@ -34,11 +39,12 @@ const registerMobxListener = () => {
         },
       });
       deleteStoreNameCache(key);
-    });
-  }
+    }
+  );
 
-  if (window.__MOBX_DEVTOOL_STORES__.onAdd) {
-    window.__MOBX_DEVTOOL_STORES__.onAdd((key) => {
+  window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.sub(
+    HOOK_EVENT.ON_ADD,
+    ({ name: key }) => {
       if (!key) {
         return;
       }
@@ -49,17 +55,18 @@ const registerMobxListener = () => {
           nickname: getMobxStoreNameByKey(key),
         },
       });
-      // findSubStoreName(key, store);
-    });
-  }
+    }
+  );
 };
 
 (async () => {
   initBridge();
   registerMobxListener();
 
-  if (window.__MOBX_DEVTOOL_STORES__) {
-    const keys = Object.keys(window.__MOBX_DEVTOOL_STORES__);
+  if (window.__MOBX_DEVTOOLS_GLOBAL_HOOK__) {
+    const keys = Object.keys(
+      window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.storeCollections
+    );
     if (keys.length !== 0) {
       frontendSender(ASYNC_MESSAGE.CREATE_STORE, {
         to: "panel",
@@ -69,9 +76,6 @@ const registerMobxListener = () => {
         },
       });
     }
-    // keys.forEach((key) => {
-    //   findSubStoreName(key, window.__MOBX_DEVTOOL_STORES__[key]);
-    // });
   }
 
   frontendSender(LIFE_CYCLE.FRONTEND_READY, {

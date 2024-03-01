@@ -4,26 +4,41 @@ import { registryMsgHandler } from "../msgHandler";
 import { getAsLeaf, getWholeStateAsLeaf } from "patch-obj";
 import { getMobxStoreNameByKey } from "utils/mobx";
 
+const checkEnv = () => {
+  if (
+    !window.__MOBX_DEVTOOLS_GLOBAL_HOOK__ ||
+    !window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.storeCollections
+  ) {
+    return false;
+  }
+  return true;
+};
+
 frontendRegister(ASYNC_MESSAGE.GET_ALL_STORES_KEYS, () => {
-  if (!window.__MOBX_DEVTOOL_STORES__) {
+  if (!checkEnv()) {
     return { keys: [], nicknames: [] };
   }
-  const keys = Object.keys(window.__MOBX_DEVTOOL_STORES__);
+  const keys = Object.keys(
+    window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.storeCollections
+  );
   return { keys, nicknames: keys.map(getMobxStoreNameByKey) };
 });
 
 frontendRegister(ASYNC_MESSAGE.GET_DATA_BY_PATH, (msg) => {
-  if (!window.__MOBX_DEVTOOL_STORES__) {
+  if (!checkEnv()) {
     return undefined;
   }
   const { storeName, path } = msg.request;
   return {
-    nodes: getAsLeaf(window.__MOBX_DEVTOOL_STORES__[storeName], path),
+    nodes: getAsLeaf(
+      window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.storeCollections[storeName],
+      path
+    ),
   };
 });
 
 frontendRegister(ASYNC_MESSAGE.GET_TREE_DATA_BY_PATHS, (msg) => {
-  if (!window.__MOBX_DEVTOOL_STORES__) {
+  if (!checkEnv()) {
     return {
       nodes: [],
     };
@@ -31,7 +46,7 @@ frontendRegister(ASYNC_MESSAGE.GET_TREE_DATA_BY_PATHS, (msg) => {
   const { paths, storeName } = msg.request;
   return {
     nodes: getWholeStateAsLeaf(
-      window.__MOBX_DEVTOOL_STORES__[storeName],
+      window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.storeCollections[storeName],
       paths
     ),
   };

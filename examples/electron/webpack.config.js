@@ -31,9 +31,6 @@ const config = {
           {
             loader: "babel-loader",
           },
-          {
-            loader: resolve("../../packages/seeker/dist/loader.js"),
-          },
         ],
       },
       {

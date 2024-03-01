@@ -28,7 +28,7 @@
       "utils/*": ["./src/utils/*"]
     }
   },
-  "include": ["src/**/*", "global.d.ts"],
+  "include": ["src/**/*", "global.d.ts", "modules.d.ts"],
 
   "exclude": ["node_modules", "dist", "scripts"]
 }

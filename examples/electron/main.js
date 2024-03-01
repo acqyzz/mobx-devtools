@@ -30,20 +30,6 @@ const getPath = () => {
 getPath();
 
 app.whenReady().then(() => {
-  // session.defaultSession.removeExtension();
-  // const extensions = session.defaultSession.getAllExtensions();
-  // console.log("extensions", extensions);
-  // session.defaultSession
-  //   .loadExtension(resolve(__dirname, "../../packages/extension/electron"), {
-  //     allowFileAccess: true,
-  //   })
-  //   .then((res) => {
-  //     console.log(res);
-  //     createWindow();
-  //   });
-  // install(REDUX_DEVTOOLS).then(() => {
-  //   createWindow();
-  // });
   session.defaultSession
     .loadExtension(resolve(__dirname, "../../packages/extension/electron"), {
       allowFileAccess: true,
@@ -51,16 +37,4 @@ app.whenReady().then(() => {
     .then((res) => {
       createWindow();
     });
-  // session.defaultSession
-  //   .loadExtension(
-  //     path.join(
-  //       os.homedir(),
-  //       "/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/5.0.0_11"
-  //     )
-  //   )
-  //   // .loadExtension(resolve(__dirname, "./chrome"))
-  //   .then((res) => {
-  //     console.log(res);
-  //     createWindow();
-  //   });
 });

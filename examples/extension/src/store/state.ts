@@ -5,33 +5,34 @@ import { makeAutoObservable } from "mobx";
 //   removeArrayItem,
 // } from "../../../../packages/extension/src/utils/patch";
 import { updateState, removeItem, addItem } from "patch-obj";
+import { user$ } from "./user";
+import { product$ } from "./product";
+import { message$, message2$ } from "./message";
 
 class StateStore {
   constructor() {
     makeAutoObservable(this);
   }
 
+  allState = {
+    user: user$,
+    product: product$,
+    message: message$,
+    message2: message2$,
+  };
+
   currentStateName = "message$";
 
   get curState() {
-    if (
-      !window.__MOBX_DEVTOOL_STORES__ ||
-      !window.__MOBX_DEVTOOL_STORES__[this.currentStateName]
-    ) {
-      return null;
-    }
-    return window.__MOBX_DEVTOOL_STORES__[this.currentStateName];
+    return this.allState[this.currentStateName];
   }
 
   get stateNames() {
-    if (!window.__MOBX_DEVTOOL_STORES__) {
-      return [];
-    }
-    return Object.keys(window.__MOBX_DEVTOOL_STORES__);
+    return Object.keys(this.allState);
   }
 
   updateCurrentState = (name: string) => {
-    if (name in window.__MOBX_DEVTOOL_STORES__) {
+    if (name in this.allState) {
       this.currentStateName = name;
       return;
     }
@@ -39,11 +40,11 @@ class StateStore {
   };
 
   updateState = (data: { value: any; path: string[] }) => {
-    const curState = window.__MOBX_DEVTOOL_STORES__[this.currentStateName];
+    const curState = this.allState[this.currentStateName];
     updateState(curState, data);
   };
   onRemoveArrayItem = (path: string[]) => {
-    const curState = window.__MOBX_DEVTOOL_STORES__[this.currentStateName];
+    const curState = this.allState[this.currentStateName];
     removeItem(curState, path);
   };
   onAddArrayItem = (data: { value: any; path: string[] }) => {

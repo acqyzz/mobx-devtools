@@ -22,7 +22,8 @@ export const registryMsgHandler = () => {
     const turnOn = turnOffEnforceActions();
     try {
       const { path, value, storeName } = msg.request;
-      const curState = window.__MOBX_DEVTOOL_STORES__[storeName];
+      const curState =
+        window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.storeCollections[storeName];
       if (!curState) {
         frontendLogger.warn`patch state error, unknown store name ${storeName}`;
         return;
@@ -37,7 +38,8 @@ export const registryMsgHandler = () => {
     const turnOn = turnOffEnforceActions();
     try {
       const { path, value, storeName } = msg.request;
-      const curState = window.__MOBX_DEVTOOL_STORES__[storeName];
+      const curState =
+        window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.storeCollections[storeName];
       if (!curState) {
         frontendLogger.warn`patch state error, unknown store name ${storeName}`;
         return;
@@ -52,7 +54,8 @@ export const registryMsgHandler = () => {
     const turnOn = turnOffEnforceActions();
     try {
       const { path, storeName } = msg.request;
-      const curState = window.__MOBX_DEVTOOL_STORES__[storeName];
+      const curState =
+        window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.storeCollections[storeName];
       if (!curState) {
         frontendLogger.warn`patch state error, unknown store name ${storeName}`;
         return;
