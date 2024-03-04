@@ -144,5 +144,7 @@ export default function installGlobalHook(window) {
       },
     },
   });
+
+  // TODO firefox and electron may not work
   installStoreHook(window.__MOBX_DEVTOOLS_GLOBAL_HOOK__);
 }

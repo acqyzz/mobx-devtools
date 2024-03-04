@@ -62,4 +62,9 @@ export const unregisterStores = (name: (string | object)[]) => {
   });
 };
 
+export const makeInspectable = (root, name?: string, override = false) => {
+  registerSingleStore(name, root, override);
+  return root;
+};
+
 export default registerStores;

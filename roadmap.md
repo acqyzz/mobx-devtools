@@ -1,2 +1,5 @@
+- feat: P2 rename example store
 - feat: P2 production mode
 - feat: P2 support custom config MAX_CHANGES_LENGTH
+- feat: P1 remove unessential dependencies
+- fix: P0 user update state make panel state wrong

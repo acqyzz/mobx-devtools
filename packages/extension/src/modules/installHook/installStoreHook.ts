@@ -1,8 +1,10 @@
 import { HOOK_EVENT, MobxDevtoolsGlobalHook } from "types/hookEvents";
 
 const getRandomKey = () => {
-  return Math.random().toString(36).slice(-3);
+  return Math.random().toString(36).slice(-4);
 };
+
+let nameId = 0;
 
 export const installStoreHook = (hook: MobxDevtoolsGlobalHook) => {
   if (!hook) {
@@ -17,22 +19,20 @@ export const installStoreHook = (hook: MobxDevtoolsGlobalHook) => {
   const storeCollections = hook.storeCollections;
 
   hook.sub(HOOK_EVENT.ADD_STORE, (data) => {
-    const { name, store, override } = data;
-    if (!name) {
-      throw new Error("[registerSingleStore] name is required");
-    }
+    const { name: originName, store, override } = data;
+    const name = originName || `AnonymousStore@${nameId++}`;
     if (!store) {
-      throw new Error("[registerSingleStore] store is required");
+      throw new Error("fail to add store: store is required");
     }
     let key = name;
     if (!!storeCollections.name) {
       if (storeCollections.name === store) {
-        console.log(`[registerSingleStore] exist same store name [${name}]`);
+        console.log(`fail to add store: exist same store name [${name}]`);
         return name;
       }
       if (override) {
         console.warn(
-          `[registerSingleStore] exist store name [${name}], store will be override`
+          `fail to add store: exist store name [${name}], store will be override`
         );
       } else {
         key = `${name}_${getRandomKey()}`;

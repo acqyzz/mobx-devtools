@@ -5,6 +5,7 @@ import { product$ } from "./store/product";
 import { user$ } from "./store/user";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
+import "./mst";
 
 console.log("app running");
 console.log(
