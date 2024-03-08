@@ -1,18 +1,9 @@
-import { action, observable, makeObservable } from "mobx";
-import { MessageStore, messageStore } from "./message";
+import {  makeAutoObservable } from "mobx";
 import { registerSingleStore } from "mobx-devtool-register";
 
 class UserStore {
   constructor() {
-    makeObservable(this, {
-      userInfo: observable,
-      friendList: observable,
-      isBaby: observable,
-      // message: observable,
-      map: observable,
-      func1: action,
-      func2: action,
-    });
+    makeAutoObservable(this);
   }
   // innerMessage = new MessageStore();
   userInfo = {
@@ -443,6 +434,8 @@ class UserStore {
     ],
   };
 
+  age = 10;
+
   isBaby = false;
 
   map = new Map(
@@ -468,20 +461,20 @@ class UserStore {
       ),
     })
   );
-  // set = new Set([
-  //   {
-  //     key1: 1,
-  //     key2: 2,
-  //   },
-  //   {
-  //     key3: 3,
-  //     key4: 4,
-  //   },
-  // ]);
+  set = new Set([
+    {
+      key1: 1,
+      key2: 2,
+    },
+    {
+      key3: 3,
+      key4: 4,
+    },
+  ]);
 
   // message = messageStore;
 
-  friendList = [];
+  friendList: string[] = [];
 
   func1 = async () => {
     return null;
@@ -490,7 +483,21 @@ class UserStore {
   func2 = async () => {
     return false;
   };
+
+  addFriend = async (id: string) => {
+    this.friendList.push(id);
+  };
+
+
+  addAge = async () => {
+    this.age++;
+  };
 }
 
 export const userStore = new UserStore();
 registerSingleStore("userStore", userStore);
+
+setInterval(() => {
+  userStore.addFriend((Math.random() + '').slice(-6));
+  userStore.addAge();
+}, 10000);

@@ -52,7 +52,7 @@ const state2TreeData = (
     state = obj;
   }
   const isArrayNode = Array.isArray(state);
-  let keys = Object.keys(state);
+  let keys = Object.keys(state).filter(key => typeof state[key] !== 'function');
   if (isArrayNode) {
     keys = keys.slice(0, maxShowLength);
   }

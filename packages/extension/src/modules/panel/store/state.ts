@@ -32,13 +32,23 @@ class StateStore {
       }
     });
   }
+
+  stateVisitedPath = new Map<string, string[][]>();
+
+  nicknameMap = new Map<string, string>();
+
+  originState: Record<string, StateNode> = {};
+
+  currentStateName = "";
+  
   init = async () => {
     this.originState = {};
+    this.currentStateName = '';
+    this.nicknameMap.clear();
+    this.stateVisitedPath.clear();
     const result = await panelSender(ASYNC_MESSAGE.GET_ALL_STORES_KEYS, {
       to: "frontend",
     });
-    this.nicknameMap.clear();
-    this.stateVisitedPath.clear();
     const { keys, nicknames } = result.response || {};
     keys?.forEach((key, index) => {
       this.originState[key] =
@@ -48,13 +58,6 @@ class StateStore {
     this.ensureCurrentStateName();
   };
 
-  stateVisitedPath = new Map<string, string[][]>();
-
-  nicknameMap = new Map<string, string>();
-
-  originState: Record<string, StateNode> = {};
-
-  currentStateName = "";
 
   get curState() {
     if (!this.originState || !this.originState[this.currentStateName]) {
