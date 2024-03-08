@@ -1,5 +1,5 @@
 import { action, observable, makeObservable } from "mobx";
-import { MessageStore, message$ } from "./message";
+import { MessageStore, messageStore } from "./message";
 import { registerSingleStore } from "mobx-devtool-register";
 
 class UserStore {
@@ -479,7 +479,7 @@ class UserStore {
   //   },
   // ]);
 
-  // message = message$;
+  // message = messageStore;
 
   friendList = [];
 
@@ -492,5 +492,5 @@ class UserStore {
   };
 }
 
-export const user$ = new UserStore();
-registerSingleStore("user$", user$);
+export const userStore = new UserStore();
+registerSingleStore("userStore", userStore);

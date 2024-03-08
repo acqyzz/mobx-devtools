@@ -4,20 +4,20 @@ import {
   addArrayItem,
   removeArrayItem,
 } from "../../../../packages/extension/src/utils/patch";
-import { user$ } from "./user";
-import { product$ } from "./product";
-import { message$, message2$ } from "./message";
+import { userStore } from "./user";
+import { productStore } from "./product";
+import { messageStore, messageStore2 } from "./message";
 
 class StateStore {
   @observable
-  currentStateName = "message$";
+  currentStateName = "message";
 
   @observable
   allState = {
-    user: user$,
-    product: product$,
-    message: message$,
-    message2: message2$,
+    user: userStore,
+    product: productStore,
+    message: messageStore,
+    message2: messageStore2,
   };
 
   @computed

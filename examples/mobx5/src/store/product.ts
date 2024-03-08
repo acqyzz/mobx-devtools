@@ -13,4 +13,4 @@ class ProductStore {
   };
 }
 
-export const product$ = new ProductStore();
+export const productStore = new ProductStore();

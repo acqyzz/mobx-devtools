@@ -26,7 +26,7 @@ export class MessageStore {
   };
 }
 
-export const message$ = new MessageStore();
-registerSingleStore("message$", message$);
-export const message2$ = new MessageStore();
-registerSingleStore("message2$", message2$);
+export const messageStore = new MessageStore();
+registerSingleStore("messageStore", messageStore);
+export const messageStore2 = new MessageStore();
+registerSingleStore("messageStore2", messageStore2);

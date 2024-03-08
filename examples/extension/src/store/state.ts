@@ -1,13 +1,8 @@
 import { makeAutoObservable } from "mobx";
-// import {
-//   // updateState,
-//   addArrayItem,
-//   removeArrayItem,
-// } from "../../../../packages/extension/src/utils/patch";
 import { updateState, removeItem, addItem } from "patch-obj";
-import { user$ } from "./user";
-import { product$ } from "./product";
-import { message$, message2$ } from "./message";
+import { userStore } from "./user";
+import { productStore } from "./product";
+import { messageStore, messageStore2 } from "./message";
 
 class StateStore {
   constructor() {
@@ -15,13 +10,13 @@ class StateStore {
   }
 
   allState = {
-    user: user$,
-    product: product$,
-    message: message$,
-    message2: message2$,
+    user: userStore,
+    product: productStore,
+    message: messageStore,
+    message2: messageStore2,
   };
 
-  currentStateName = "message$";
+  currentStateName = "user";
 
   get curState() {
     return this.allState[this.currentStateName];

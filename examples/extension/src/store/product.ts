@@ -1,6 +1,6 @@
 import { action, observable, makeObservable } from "mobx";
-import { message$ } from "./message";
-import { user$ } from "./user";
+import { messageStore } from "./message";
+import { userStore } from "./user";
 import { registerSingleStore } from "mobx-devtool-register";
 
 const mockProductList = new Array(3).fill(0).map((index) => ({
@@ -28,8 +28,8 @@ class ProductStore {
     });
 
     setTimeout(() => {
-      // this.userStore = user$;
-      this.storeList.push(user$, message$);
+      // this.userStore = userStore;
+      this.storeList.push(userStore, messageStore);
     }, 10000);
   }
   productCount = 13;
@@ -38,7 +38,7 @@ class ProductStore {
 
   storeList: any[] = [];
 
-  // messageStore = message$;
+  // messageStore = messageStore;
 
   userStore = {};
 
@@ -47,5 +47,5 @@ class ProductStore {
   };
 }
 
-export const product$ = new ProductStore();
-registerSingleStore("product$", product$);
+export const productStore = new ProductStore();
+registerSingleStore("productStore", productStore);

@@ -22,5 +22,5 @@ class MessageStore {
   };
 }
 
-export const message$ = new MessageStore();
-export const message2$ = new MessageStore();
+export const messageStore = new MessageStore();
+export const messageStore2 = new MessageStore();

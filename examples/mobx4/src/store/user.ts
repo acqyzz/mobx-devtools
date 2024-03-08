@@ -1,5 +1,5 @@
 import { action, observable } from "mobx";
-import { message$ } from "./message";
+import { messageStore } from "./message";
 
 class UserStore {
   @observable
@@ -435,7 +435,7 @@ class UserStore {
   isBaby = false;
 
   @observable
-  message = message$;
+  message = messageStore;
 
   @observable
   friendList = [];
@@ -451,4 +451,4 @@ class UserStore {
   };
 }
 
-export const user$ = new UserStore();
+export const userStore = new UserStore();
