@@ -1,6 +1,4 @@
 import { MESSAGE } from "types/message";
-import { LIFE_CYCLE, LIFE_CYCLE_TYPE_DATA } from "types/message/lifecycle";
-import { ASYNC_MESSAGE } from "types/message/message";
 import { proxyLogger } from "utils/logger";
 import { judgeIsMobxDevtoolMessage } from "utils/message";
 

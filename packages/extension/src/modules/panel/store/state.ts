@@ -2,7 +2,6 @@ import { autorun, makeAutoObservable } from "mobx";
 import { panelSender } from "panel/bridge";
 import { ASYNC_MESSAGE } from "types/message/message";
 import { panelLogger } from "utils/logger";
-import "./syncState";
 import { RequestMessage } from "types/message";
 import { StateNode } from "panel/types";
 import { createDataNode } from "patch-obj";
@@ -40,10 +39,10 @@ class StateStore {
   originState: Record<string, StateNode> = {};
 
   currentStateName = "";
-  
+
   init = async () => {
     this.originState = {};
-    this.currentStateName = '';
+    this.currentStateName = "";
     this.nicknameMap.clear();
     this.stateVisitedPath.clear();
     const result = await panelSender(ASYNC_MESSAGE.GET_ALL_STORES_KEYS, {
@@ -57,7 +56,6 @@ class StateStore {
     });
     this.ensureCurrentStateName();
   };
-
 
   get curState() {
     if (!this.originState || !this.originState[this.currentStateName]) {
@@ -145,7 +143,6 @@ class StateStore {
       this.originState[key] =
         this.originState[key] || createStateNode(this.originState, key, {});
       this.nicknameMap.set(key, nickname as string);
-      // this.stateVisitedPath.set(key, []);
     } else if (Array.isArray(key)) {
       key.forEach((item, index) => {
         this.originState[item] =

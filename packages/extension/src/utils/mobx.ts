@@ -47,14 +47,3 @@ export const getKeyByMobxStoreName = (storeName: string) => {
 export const getAllMobxSymbols = () => {
   return window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.mobxSymbols;
 };
-
-// export const judgeIsMobxObservableObject = (data: any) => {
-//   if (typeof window === "undefined") {
-//     return false;
-//   }
-//   const collections = window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.collections;
-//   const symbols = Object.keys(collections).map(
-//     (mobxId) => collections[mobxId].mobx.$mobx
-//   );
-//   return data && symbols.some((symbolKey) => data[symbolKey]);
-// };

@@ -6,6 +6,7 @@ import { stateStore } from "./state";
 export enum ACTIVE_KEY {
   STATE_TREE = "STATE_TREE",
   CHANGES = "CHANGES",
+  MST = "MST",
 }
 
 class AppStore {

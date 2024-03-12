@@ -1,4 +1,4 @@
-import { frontendRegister } from "./bridge";
+import { frontendRegister } from ".";
 import { ASYNC_MESSAGE } from "types/message/message";
 import { frontendLogger } from "utils/logger";
 import { updateState, addItem, removeItem } from "patch-obj";

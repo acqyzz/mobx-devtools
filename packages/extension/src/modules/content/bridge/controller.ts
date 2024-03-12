@@ -1,14 +1,12 @@
 import { ASYNC_MESSAGE } from "types/message/message";
 import { frontendRegister } from ".";
-import { registryMsgHandler } from "../msgHandler";
+import { registryMsgHandler } from "./msgHandler";
 import { getAsLeaf, getWholeStateAsLeaf } from "patch-obj";
 import { getMobxStoreNameByKey } from "utils/mobx";
+import { getMSTLogItem, getMSTNames } from "../mst/mst";
 
 const checkEnv = () => {
-  if (
-    !window.__MOBX_DEVTOOLS_GLOBAL_HOOK__ ||
-    !window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.storeCollections
-  ) {
+  if (!window.__MOBX_DEVTOOLS_GLOBAL_HOOK__) {
     return false;
   }
   return true;
@@ -49,6 +47,30 @@ frontendRegister(ASYNC_MESSAGE.GET_TREE_DATA_BY_PATHS, (msg) => {
       window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.storeCollections[storeName],
       paths
     ),
+  };
+});
+
+frontendRegister(ASYNC_MESSAGE.GET_ALL_MST_KEYS, () => {
+  if (!checkEnv()) {
+    return {
+      keys: [],
+    };
+  }
+  return {
+    keys: getMSTNames(),
+  };
+});
+
+frontendRegister(ASYNC_MESSAGE.GET_MST_SNAPSHOT, (msg) => {
+  const { logItemId, key } = msg.request;
+  if (!checkEnv()) {
+    return {
+      snapshot: {},
+    };
+  }
+  const logItem = getMSTLogItem(key, logItemId);
+  return {
+    snapshot: logItem?.snapshot || {},
   };
 });
 

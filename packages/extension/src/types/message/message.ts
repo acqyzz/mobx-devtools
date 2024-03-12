@@ -1,6 +1,7 @@
 import { DataNode } from "patch-obj/dist/types";
 import { Change } from "types/change";
 import { MESSAGE, WithType } from "types/message";
+import { SummaryLogItem } from "types/mst";
 import { StorageData } from "types/storage";
 
 export enum ASYNC_MESSAGE {
@@ -23,6 +24,11 @@ export enum ASYNC_MESSAGE {
   /** remove an array or set item */
   REMOVE_STATE_FROM_FRONTEND = "REMOVE_STATE_FROM_FRONTEND",
 
+  /** get all mst store key */
+  GET_ALL_MST_KEYS = "GET_ALL_MST_KEYS",
+  /** get mst store snapshot by log item id */
+  GET_MST_SNAPSHOT = "GET_MST_SNAPSHOT",
+
   /**
    * -------- api provided by panel --------
    * */
@@ -37,12 +43,17 @@ export enum ASYNC_MESSAGE {
   CREATE_STATE_FROM_PANEL = "CREATE_STATE_FROM_PANEL",
   /** remove an array or set item */
   REMOVE_STATE_FROM_PANEL = "REMOVE_STATE_FROM_PANEL",
-
+  /** stores changed */
+  REPORT_STORES_CHANGED = "REPORT_STORES_CHANGED",
   /** report mobx changes */
   REPORT_CHANGES = "REPORT_CHANGES",
 
-  /** stores changed */
-  REPORT_STORES_CHANGED = "REPORT_STORES_CHANGED",
+  /** create a mst store  */
+  CREATE_MST = "CREATE_MST",
+  /** remove a mst store */
+  REMOVE_MST = "REMOVE_MST",
+  /** add mst log item */
+  ADD_MST_LOG_ITEM = "ADD_MST_LOG_ITEM",
 
   /**
    * -------- storage user setting --------
@@ -104,6 +115,21 @@ export type ASYNC_MESSAGE_TYPE_DATA = WithType<{
     path: string[];
     storeName: string;
   }>;
+  [ASYNC_MESSAGE.GET_ALL_MST_KEYS]: MESSAGE<
+    any,
+    {
+      keys: string[];
+    }
+  >;
+  [ASYNC_MESSAGE.GET_MST_SNAPSHOT]: MESSAGE<
+    {
+      logItemId: number;
+      key: string;
+    },
+    {
+      snapshot: any;
+    }
+  >;
 
   /**
    * -------- api provided by panel --------
@@ -134,6 +160,17 @@ export type ASYNC_MESSAGE_TYPE_DATA = WithType<{
     storeName: string;
   }>;
   [ASYNC_MESSAGE.REPORT_CHANGES]: MESSAGE<Change[]>;
+
+  [ASYNC_MESSAGE.CREATE_MST]: MESSAGE<{
+    key: string;
+  }>;
+  [ASYNC_MESSAGE.REMOVE_MST]: MESSAGE<{
+    key: string;
+  }>;
+  [ASYNC_MESSAGE.ADD_MST_LOG_ITEM]: MESSAGE<{
+    key: string;
+    logItem: SummaryLogItem;
+  }>;
 
   /**
    * -------- storage user setting --------

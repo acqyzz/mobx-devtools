@@ -63,6 +63,7 @@ const config = {
       components: resolve("../components"),
       react: resolve("./node_modules/react/index.js"),
       mobx: resolve("./node_modules/mobx/dist/index.js"),
+      src: resolve("./src"),
     },
   },
   plugins: [

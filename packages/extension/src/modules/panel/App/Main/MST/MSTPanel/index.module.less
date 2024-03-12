@@ -1,0 +1,46 @@
+.mstPanel {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  border-right: 1px solid #f0f0f0;
+
+  .left {
+    flex-basis: 160px;
+    height: calc(100vh - 93px);
+    overflow: auto;
+    border-right: 1px solid #f0f0f0;
+  }
+
+  .right {
+    flex: 1;
+    height: calc(100vh - 92px - 8px);
+    overflow: auto;
+  }
+}
+
+.logItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  .logTitle {
+    height: calc(100% - 8px);
+    width: calc(100% - 8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+  &:hover {
+    .logTitle {
+      color: var(--theme-color);
+    }
+  }
+  &.active {
+    .logTitle {
+      color: var(--theme-color);
+      background: var(--theme-color-light);
+    }
+  }
+}

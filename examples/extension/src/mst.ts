@@ -31,12 +31,11 @@ const RootStore = types
       self.todos.set(id, Todo.create({ name }));
     },
   }));
-const rootStore = RootStore.create();
+export const rootStore = RootStore.create();
 makeInspectable(rootStore);
-
 //@ts-ignore
 window.__mstRootStore = rootStore;
 
 setInterval(() => {
   rootStore.addTodo(Math.random(), "Get coffee");
-}, 10000);
+}, 5000);

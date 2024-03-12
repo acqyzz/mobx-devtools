@@ -12,11 +12,13 @@ type HookEventData = {
     name: string;
     store: object;
     override?: boolean;
+    mobxId?: string;
   };
   [HOOK_EVENT.DELETE_STORE]: string | object;
   [HOOK_EVENT.ON_ADD]: {
     name: string;
     store: object;
+    mobxId?: string;
   };
   [HOOK_EVENT.ON_DELETE]: {
     name: string;
@@ -28,6 +30,7 @@ export interface MobxDevtoolsGlobalHook {
   hookVersion: boolean;
   collections: Record<string, Record<string, any>>;
   storeCollections: Record<string, object>;
+  mstMap: WeakMap<object, string>;
   mobxSymbols: any[];
   inject(collection: Record<string, any>): void;
   injectMobx(mobx: any): void;

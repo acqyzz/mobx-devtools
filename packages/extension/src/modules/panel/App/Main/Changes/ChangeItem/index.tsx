@@ -15,6 +15,7 @@ export const ChangeItem = memo((props: ChangeItemProps) => {
   const { change, style } = props;
   return (
     <div className={styles.changeItem} style={{ ...style }}>
+      {/* TODO op format time */}
       <span className={styles.timestamp}>{formatTime(change.timestamp)}</span>
       <Tag className={styles.labelTag} color="blue">
         {change.type}

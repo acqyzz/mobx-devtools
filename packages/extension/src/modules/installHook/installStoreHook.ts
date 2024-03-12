@@ -16,18 +16,24 @@ export const installStoreHook = (hook: MobxDevtoolsGlobalHook) => {
     enumerable: false,
   });
 
+  Object.defineProperty(hook, "mstMap", {
+    value: new WeakMap(),
+    enumerable: false,
+  });
+
   const storeCollections = hook.storeCollections;
 
   hook.sub(HOOK_EVENT.ADD_STORE, (data) => {
-    const { name: originName, store, override } = data;
+    const { name: originName, store, override, mobxId } = data;
     const name = originName || `AnonymousStore@${nameId++}`;
     if (!store) {
-      throw new Error("fail to add store: store is required");
+      console.error("fail to add store: store is required");
+      return "";
     }
     let key = name;
-    if (!!storeCollections.name) {
-      if (storeCollections.name === store) {
-        console.log(`fail to add store: exist same store name [${name}]`);
+    if (!!storeCollections[name]) {
+      if (storeCollections[name] === store) {
+        console.error(`fail to add store: exist same store name [${name}]`);
         return name;
       }
       if (override) {
@@ -39,9 +45,13 @@ export const installStoreHook = (hook: MobxDevtoolsGlobalHook) => {
       }
     }
     storeCollections[key] = store;
+    if (mobxId) {
+      hook.mstMap.set(store, mobxId);
+    }
     hook.emit(HOOK_EVENT.ON_ADD, {
       name: key,
       store,
+      mobxId,
     });
     return key;
   });

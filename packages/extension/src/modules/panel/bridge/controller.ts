@@ -11,6 +11,7 @@ import {
   removeStoreArrayItem,
   updateStoreState,
 } from "panel/utils/patch";
+import { mstStore } from "panel/store/mst";
 
 panelRegister(LIFE_CYCLE.FRONTEND_READY, async () => {
   await beginCheckMobxInDebug();
@@ -23,11 +24,7 @@ panelRegister(ASYNC_MESSAGE.CREATE_STORE, stateStore.onCreateStore);
 panelRegister(ASYNC_MESSAGE.REMOVE_STORE, stateStore.onRemoveStore);
 
 panelRegister(ASYNC_MESSAGE.REPORT_STORES_CHANGED, async (msg) => {
-  const { keys } = msg.request;
-  // panelLogger.debug`report stores changed ${keys}`;
-  // if (keys.includes(stateStore.currentStateName)) {
   stateStore.updateWholeState();
-  // }
 });
 
 panelRegister(ASYNC_MESSAGE.PATCH_STATE_FROM_PANEL, (msg) => {
@@ -52,3 +49,14 @@ panelRegister(ASYNC_MESSAGE.REMOVE_STATE_FROM_PANEL, (msg) => {
 });
 
 panelRegister(ASYNC_MESSAGE.REPORT_CHANGES, changesStore.onReportChanges);
+
+panelRegister(ASYNC_MESSAGE.CREATE_MST, (msg) => {
+  const { key } = msg.request;
+  mstStore.createStore(key);
+});
+
+panelRegister(ASYNC_MESSAGE.ADD_MST_LOG_ITEM, (msg) => {
+  const request = msg.request;
+  const { logItem, key } = request;
+  mstStore.addLogItem(key, logItem);
+});

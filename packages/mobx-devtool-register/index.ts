@@ -1,3 +1,6 @@
+import * as mobx from "mobx";
+import * as libmst from "mobx-state-tree";
+
 enum HOOK_EVENT {
   ADD_STORE = "add-store",
   DELETE_STORE = "delete-store",
@@ -24,8 +27,24 @@ export const registerSingleStore = (
   if (!checkEnv()) {
     return;
   }
+  const hook = window.__MOBX_DEVTOOLS_GLOBAL_HOOK__;
+  hook.inject({ mobx, mst: libmst });
+  for (const mobxId in hook.collections) {
+    if (Object.prototype.hasOwnProperty.call(hook.collections, mobxId)) {
+      const { mst } = hook.collections[mobxId];
+      if (mst && mst.isStateTreeNode(store) && mst.isRoot(store)) {
+        hook.emit(HOOK_EVENT.ADD_STORE, {
+          name,
+          store,
+          override,
+          mobxId,
+        });
+        return;
+      }
+    }
+  }
 
-  window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.emit(HOOK_EVENT.ADD_STORE, {
+  hook.emit(HOOK_EVENT.ADD_STORE, {
     name,
     store,
     override,
