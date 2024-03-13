@@ -60,3 +60,8 @@ panelRegister(ASYNC_MESSAGE.ADD_MST_LOG_ITEM, (msg) => {
   const { logItem, key } = request;
   mstStore.addLogItem(key, logItem);
 });
+
+panelRegister(ASYNC_MESSAGE.REMOVE_MST, (msg) => {
+  const { key } = msg.request;
+  mstStore.removeStore(key);
+});

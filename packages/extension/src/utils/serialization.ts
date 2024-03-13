@@ -20,6 +20,7 @@ export const symbols = {
   editable: "@@editable",
   mobxObject: "@@mobxObject",
   serializationException: "@@serializationException",
+  meta: "@@meta",
 };
 
 export const allowedComplexObjects = new Set();

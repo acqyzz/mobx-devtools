@@ -14,6 +14,18 @@ export const formatTime = (timestamp: number) => {
   )}:${fillZero(minute)}:${fillZero(second)}.${fillZero(millisecond, 3)}`;
 };
 
+export const formatDayTime = (timestamp: number) => {
+  const date = new Date(timestamp);
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const second = date.getSeconds();
+  const millisecond = date.getMilliseconds();
+  return `${fillZero(hour)}:${fillZero(minute)}:${fillZero(second)}.${fillZero(
+    millisecond,
+    3
+  )}`;
+};
+
 const fillZero = (num: number, bit = 2) => {
   const len = `${num}`.length;
   if (len < bit) {

@@ -1,6 +1,6 @@
 import { types } from "mobx-state-tree";
 // import makeInspectable from "mobx-devtools-mst";
-import { makeInspectable } from "mobx-devtool-register";
+import { makeInspectable, unregisterSingleStore } from "mobx-devtool-register";
 
 const Todo = types
   .model({
@@ -33,9 +33,55 @@ const RootStore = types
   }));
 export const rootStore = RootStore.create();
 makeInspectable(rootStore);
-//@ts-ignore
-window.__mstRootStore = rootStore;
+
+const Product = types
+  .model({
+    name: types.optional(types.string, ""),
+    price: types.optional(types.number, 0),
+  })
+  .actions((self) => ({
+    setName(newName) {
+      self.name = newName;
+    },
+
+    setPrice(newPrice) {
+      self.price = newPrice;
+    },
+  }));
+
+const Message = types.model({
+  name: types.optional(types.string, ""),
+});
+
+const RootStore_2 = types
+  .model({
+    product: types.map(Product),
+    message: types.map(Message),
+  })
+  .actions((self) => ({
+    addProduct(id, name, price) {
+      self.product.set(id, Product.create({ price, name }));
+    },
+  }));
+export const rootStore_2 = RootStore_2.create();
+makeInspectable(rootStore_2);
+
+setTimeout(() => {
+  unregisterSingleStore(rootStore);
+}, 10000);
+
+setTimeout(() => {
+  unregisterSingleStore(rootStore_2);
+}, 15000);
 
 setInterval(() => {
-  rootStore.addTodo(Math.random(), "Get coffee");
-}, 5000);
+  rootStore.addTodo((Math.random() + "").slice(-6), "Get coffee");
+}, 3000);
+
+setInterval(() => {
+  rootStore_2.addProduct(
+    (Math.random() + "").slice(-6),
+    "Get coffee",
+    Math.floor(Math.random() * 1000)
+  );
+}, 3000);

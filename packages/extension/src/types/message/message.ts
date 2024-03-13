@@ -28,6 +28,12 @@ export enum ASYNC_MESSAGE {
   GET_ALL_MST_KEYS = "GET_ALL_MST_KEYS",
   /** get mst store snapshot by log item id */
   GET_MST_SNAPSHOT = "GET_MST_SNAPSHOT",
+  /** update log recording */
+  PUT_LOG_RECORDING = "PUT_LOG_RECORDING",
+  /** remove deprecated log  */
+  REMOVE_DEPRECATED_LOGS = "REMOVE_DEPRECATED_LOGS",
+  /** apply snapshot */
+  APPLY_SNAPSHOT = "APPLY_SNAPSHOT",
 
   /**
    * -------- api provided by panel --------
@@ -130,6 +136,17 @@ export type ASYNC_MESSAGE_TYPE_DATA = WithType<{
       snapshot: any;
     }
   >;
+  [ASYNC_MESSAGE.PUT_LOG_RECORDING]: MESSAGE<{
+    isRecording: boolean;
+  }>;
+  [ASYNC_MESSAGE.REMOVE_DEPRECATED_LOGS]: MESSAGE<{
+    key: string;
+    ids: number[];
+  }>;
+  [ASYNC_MESSAGE.APPLY_SNAPSHOT]: MESSAGE<{
+    key: string;
+    id: number;
+  }>;
 
   /**
    * -------- api provided by panel --------

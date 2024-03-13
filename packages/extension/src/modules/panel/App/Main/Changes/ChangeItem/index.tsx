@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import styles from "./index.module.less";
-import { formatTime } from "utils/format";
+import { formatDayTime } from "utils/format";
 import { Change } from "types/change";
 import { Tag, Tooltip } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
@@ -15,8 +15,9 @@ export const ChangeItem = memo((props: ChangeItemProps) => {
   const { change, style } = props;
   return (
     <div className={styles.changeItem} style={{ ...style }}>
-      {/* TODO op format time */}
-      <span className={styles.timestamp}>{formatTime(change.timestamp)}</span>
+      <span className={styles.timestamp}>
+        {formatDayTime(change.timestamp)}
+      </span>
       <Tag className={styles.labelTag} color="blue">
         {change.type}
       </Tag>

@@ -56,11 +56,11 @@ class ChangesStore {
     this.typeFilter = data.changeFilterSetting;
   };
   addChange = (changes: Change[]) => {
-    const newChanges = changes.reverse();
-    const result = [...newChanges, ...this.changes].slice(
-      0,
-      MAX_CHANGES_LENGTH
-    );
+    const newChanges = changes;
+    const result = [...this.changes, ...newChanges];
+    if (result.length > MAX_CHANGES_LENGTH) {
+      result.splice(0, Math.ceil(MAX_CHANGES_LENGTH / 2));
+    }
     this.changes = result;
   };
   switchIsRecording = () => {

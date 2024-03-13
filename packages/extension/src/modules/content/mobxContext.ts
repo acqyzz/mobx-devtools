@@ -41,7 +41,7 @@ export const registerMobxListener = () => {
     if (mobxId) {
       const { mst } = hook.collections[mobxId];
       if (mst && mst.isStateTreeNode(store) && mst.isRoot(store)) {
-        registerMSTRoot(store, mst, key);
+        registerMSTRoot(store, mst, key, mobxId);
         frontendSender(ASYNC_MESSAGE.CREATE_MST, {
           to: "panel",
           request: {
@@ -68,12 +68,11 @@ export const syncMobxStores = () => {
     if (keys.length !== 0) {
       keys.forEach((key) => {
         const store = hook.storeCollections[key];
-        console.log("mstMap.has(store)", hook.mstMap.has(store));
         if (hook.mstMap.has(store)) {
           const mobxId = hook.mstMap.get(store);
           const { mst } = hook.collections[mobxId];
           if (mst && mst.isStateTreeNode(store) && mst.isRoot(store)) {
-            registerMSTRoot(store, mst, key);
+            registerMSTRoot(store, mst, key, mobxId);
             frontendSender(ASYNC_MESSAGE.CREATE_MST, {
               to: "panel",
               request: {

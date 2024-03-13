@@ -3,7 +3,13 @@ import { frontendRegister } from ".";
 import { registryMsgHandler } from "./msgHandler";
 import { getAsLeaf, getWholeStateAsLeaf } from "patch-obj";
 import { getMobxStoreNameByKey } from "utils/mobx";
-import { getMSTLogItem, getMSTNames } from "../mst/mst";
+import {
+  applySnapshot,
+  getMSTLogItem,
+  getMSTNames,
+  removeLogItems,
+  updateMSTRecording,
+} from "../mst/mst";
 
 const checkEnv = () => {
   if (!window.__MOBX_DEVTOOLS_GLOBAL_HOOK__) {
@@ -72,6 +78,30 @@ frontendRegister(ASYNC_MESSAGE.GET_MST_SNAPSHOT, (msg) => {
   return {
     snapshot: logItem?.snapshot || {},
   };
+});
+
+frontendRegister(ASYNC_MESSAGE.PUT_LOG_RECORDING, (msg) => {
+  const { isRecording } = msg.request;
+  if (!checkEnv()) {
+    return;
+  }
+  updateMSTRecording(isRecording);
+});
+
+frontendRegister(ASYNC_MESSAGE.REMOVE_DEPRECATED_LOGS, (msg) => {
+  const { key, ids } = msg.request;
+  if (!checkEnv()) {
+    return;
+  }
+  removeLogItems(key, ids);
+});
+
+frontendRegister(ASYNC_MESSAGE.APPLY_SNAPSHOT, (msg) => {
+  const { key, id } = msg.request;
+  if (!checkEnv()) {
+    return;
+  }
+  applySnapshot(key, id);
 });
 
 registryMsgHandler();
