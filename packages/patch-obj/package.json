@@ -4,6 +4,14 @@
   "description": "lazy patch object",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mobxjs/mobx-devtools.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mobxjs/mobx/issues"
+  },
+  "homepage": "https://mobxjs.github.io/mobx",
   "scripts": {
     "build": "tsc -P tsconfig.build.json",
     "dev": "tsc -w -P tsconfig.build.json",
