@@ -1,6 +1,8 @@
 import { types } from "mobx-state-tree";
-// import makeInspectable from "mobx-devtools-mst";
-import { makeInspectable, unregisterSingleStore } from "mobx-devtool-register";
+import {
+  makeInspectable,
+  unregisterSingleStore,
+} from "mobx-devtools-inspector";
 
 const Todo = types
   .model({
@@ -70,9 +72,9 @@ setTimeout(() => {
   unregisterSingleStore(rootStore);
 }, 10000);
 
-setTimeout(() => {
-  unregisterSingleStore(rootStore_2);
-}, 15000);
+// setTimeout(() => {
+//   unregisterSingleStore(rootStore_2);
+// }, 15000);
 
 setInterval(() => {
   rootStore.addTodo((Math.random() + "").slice(-6), "Get coffee");

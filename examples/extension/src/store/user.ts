@@ -1,5 +1,5 @@
-import {  makeAutoObservable } from "mobx";
-import { registerSingleStore } from "mobx-devtool-register";
+import { makeAutoObservable } from "mobx";
+import { registerSingleStore } from "mobx-devtools-inspector";
 
 class UserStore {
   constructor() {
@@ -488,7 +488,6 @@ class UserStore {
     this.friendList.push(id);
   };
 
-
   addAge = async () => {
     this.age++;
   };
@@ -498,6 +497,6 @@ export const userStore = new UserStore();
 registerSingleStore("userStore", userStore);
 
 setInterval(() => {
-  userStore.addFriend((Math.random() + '').slice(-6));
+  userStore.addFriend((Math.random() + "").slice(-6));
   userStore.addAge();
 }, 10000);

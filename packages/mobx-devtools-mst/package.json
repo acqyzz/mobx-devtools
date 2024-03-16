@@ -1,0 +1,28 @@
+{
+  "name": "mobx-devtools-mst",
+  "version": "0.10.0",
+  "main": "lib/index.js",
+  "typings": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mobxjs/mobx-devtools.git"
+  },
+  "author": "Andy Kogut",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mobxjs/mobx/issues"
+  },
+  "homepage": "https://mobxjs.github.io/mobx",
+  "keywords": [
+    "mobx",
+    "mobx-state-tree",
+    "mst",
+    "devtools"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "mobx-devtools-inspector": "workspace:*"
+  }
+}

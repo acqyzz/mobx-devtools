@@ -1,7 +1,7 @@
 import { action, observable, makeObservable } from "mobx";
 import { messageStore } from "./message";
 import { userStore } from "./user";
-import { registerSingleStore } from "mobx-devtool-register";
+import { registerSingleStore } from "mobx-devtools-inspector";
 
 const mockProductList = new Array(3).fill(0).map((index) => ({
   id: index + 1,

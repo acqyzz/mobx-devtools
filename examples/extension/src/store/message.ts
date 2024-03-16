@@ -1,5 +1,5 @@
 import { action, observable, makeObservable } from "mobx";
-import { registerSingleStore } from "mobx-devtool-register";
+import { registerSingleStore } from "mobx-devtools-inspector";
 
 export class MessageStore {
   constructor() {
