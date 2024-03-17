@@ -40,9 +40,9 @@ export interface MESSAGE<T = any, U = any> {
   response?: U;
 }
 
-export type WithType<T> = {
-  [x in keyof T]: T[x] & { type: x };
-};
+// export type WithType<T> = {
+//   [x in keyof T]: T[x] & { type: ASYNC_MESSAGE | LIFE_CYCLE };
+// };
 
 export type RequestMessage<T extends MESSAGE_TYPE_DATA_KEYS> = Omit<
   EMIT_MESSAGE_TYPE_DATA[T],

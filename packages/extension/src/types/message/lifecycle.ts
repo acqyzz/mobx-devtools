@@ -1,4 +1,4 @@
-import { MESSAGE, WithType } from "types/message";
+import { MESSAGE } from "types/message";
 
 export enum LIFE_CYCLE {
   FRONTEND_READY = "FRONTEND_READY",
@@ -6,8 +6,8 @@ export enum LIFE_CYCLE {
   PROXY_READY = "PROXY_READY",
 }
 
-export type LIFE_CYCLE_TYPE_DATA = WithType<{
+export type LIFE_CYCLE_TYPE_DATA = {
   [LIFE_CYCLE.FRONTEND_READY]: MESSAGE;
   [LIFE_CYCLE.REGISTER_DEVTOOL]: MESSAGE;
   [LIFE_CYCLE.PROXY_READY]: MESSAGE;
-}>;
+};

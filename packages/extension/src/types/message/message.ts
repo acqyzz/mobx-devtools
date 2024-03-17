@@ -1,6 +1,6 @@
 import { DataNode } from "patch-obj/dist/types";
 import { Change } from "types/change";
-import { MESSAGE, WithType } from "types/message";
+import { MESSAGE } from "types/message";
 import { SummaryLogItem } from "types/mst";
 import { StorageData } from "types/storage";
 
@@ -70,7 +70,7 @@ export enum ASYNC_MESSAGE {
   GET_LOCAL_DATA = "GET_LOCAL_DATA",
 }
 
-export type ASYNC_MESSAGE_TYPE_DATA = WithType<{
+export type ASYNC_MESSAGE_TYPE_DATA = {
   [ASYNC_MESSAGE.SYNC_STATE]: MESSAGE<{
     uid: number;
     state: number[];
@@ -197,4 +197,4 @@ export type ASYNC_MESSAGE_TYPE_DATA = WithType<{
     value: any;
   }>;
   [ASYNC_MESSAGE.GET_LOCAL_DATA]: MESSAGE;
-}>;
+};
