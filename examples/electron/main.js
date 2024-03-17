@@ -1,8 +1,6 @@
 const { app, BrowserWindow, session, webFrame } = require("electron");
 const { resolve } = require("path");
 const path = require("path");
-const { REDUX_DEVTOOLS } = require("electron-devtools-installer");
-const install = require("electron-devtools-installer").default;
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,

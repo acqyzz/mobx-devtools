@@ -14,6 +14,7 @@ export const State = observer(() => {
     updateState,
     onRemoveArrayItem,
     updateCurrentState,
+    onAddArrayItem,
   } = stateStore;
   const items: Items = stateNames.map((name) => ({
     key: name,
@@ -33,8 +34,11 @@ export const State = observer(() => {
       <div className={styles.right}>
         <StateTree
           curState={curState}
+          editMode
           onEditConfirm={updateState}
+          updateState={updateState}
           onRemoveArrayItem={onRemoveArrayItem}
+          onAddArrayItem={onAddArrayItem}
         ></StateTree>
       </div>
     </div>

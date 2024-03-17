@@ -20,11 +20,6 @@
   "devtools_page": "dist/dev/index.html",
   "web_accessible_resources": [
     {
-      "resources": ["dist/backend/proxy.js"],
-      "matches": ["<all_urls>"],
-      "extension_ids": []
-    },
-    {
       "resources": ["dist/frontend/index.js"],
       "matches": ["<all_urls>"],
       "extension_ids": []

@@ -1,5 +1,6 @@
 import { action, observable } from "mobx";
 import { messageStore } from "./message";
+import { registerSingleStore } from "mobx-devtools-inspector";
 
 class UserStore {
   @observable
@@ -440,6 +441,9 @@ class UserStore {
   @observable
   friendList = [];
 
+  @observable
+  age = 10;
+
   @action
   func1 = async () => {
     return null;
@@ -449,6 +453,23 @@ class UserStore {
   func2 = async () => {
     return false;
   };
+
+  @action
+  addFriend = async (id: string) => {
+    this.friendList.push(id);
+  };
+
+  @action
+  addAge = async () => {
+    this.age++;
+  };
 }
 
 export const userStore = new UserStore();
+
+registerSingleStore("userStore", userStore);
+
+setInterval(() => {
+  userStore.addFriend((Math.random() + "").slice(-6));
+  userStore.addAge();
+}, 10000);

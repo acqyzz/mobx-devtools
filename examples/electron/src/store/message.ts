@@ -1,4 +1,5 @@
 import { action, observable } from "mobx";
+import { registerSingleStore } from "mobx-devtools-inspector";
 
 class MessageStore {
   constructor() {}
@@ -23,4 +24,6 @@ class MessageStore {
 }
 
 export const messageStore = new MessageStore();
+registerSingleStore("messageStore", messageStore);
 export const messageStore2 = new MessageStore();
+registerSingleStore("messageStore2", messageStore2);

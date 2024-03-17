@@ -1,4 +1,4 @@
-import { autorun, makeAutoObservable } from "mobx";
+import { autorun, makeAutoObservable, toJS } from "mobx";
 import { panelSender } from "panel/bridge";
 import { ASYNC_MESSAGE } from "types/message/message";
 import { panelLogger } from "utils/logger";
@@ -190,7 +190,7 @@ class StateStore {
       to: "frontend",
       request: {
         storeName: currentStateName,
-        paths: stateVisitedPath.get(currentStateName) || [],
+        paths: toJS(stateVisitedPath.get(currentStateName) || []),
       },
     });
     this.setOriginState({

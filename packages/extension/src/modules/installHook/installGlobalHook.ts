@@ -4,10 +4,17 @@
  *       function in some places and inject the source into the page.
  */
 
-import { HOOK_EVENT } from "types/hookEvents";
-import { installStoreHook } from "./installStoreHook";
-
 export default function installGlobalHook(window) {
+  let nameId = 0;
+
+  enum HOOK_EVENT {
+    ADD_STORE = "add-store",
+    DELETE_STORE = "delete-store",
+    ON_ADD = "on-add",
+    ON_DELETE = "on-delete",
+    INSTANCES_INJECTED = "instances-injected",
+  }
+
   if (
     window.__MOBX_DEVTOOLS_GLOBAL_HOOK__ &&
     window.__MOBX_DEVTOOLS_GLOBAL_HOOK__.collections
@@ -145,6 +152,85 @@ export default function installGlobalHook(window) {
     },
   });
 
-  // TODO firefox and electron may not work
-  installStoreHook(window.__MOBX_DEVTOOLS_GLOBAL_HOOK__);
+  const hook = window.__MOBX_DEVTOOLS_GLOBAL_HOOK__;
+
+  if (!hook) {
+    return;
+  }
+
+  const getRandomKey = () => {
+    return Math.random().toString(36).slice(-4);
+  };
+
+  Object.defineProperty(hook, "storeCollections", {
+    value: {},
+    enumerable: false,
+  });
+
+  Object.defineProperty(hook, "mstMap", {
+    value: new WeakMap(),
+    enumerable: false,
+  });
+
+  const storeCollections = hook.storeCollections;
+
+  hook.sub(HOOK_EVENT.ADD_STORE, (data) => {
+    const { name: originName, store, override, mobxId } = data;
+    const name = originName || `AnonymousStore@${nameId++}`;
+    if (!store) {
+      console.error("fail to add store: store is required");
+      return "";
+    }
+    let key = name;
+    if (!!storeCollections[name]) {
+      if (storeCollections[name] === store) {
+        console.error(`fail to add store: exist same store name [${name}]`);
+        return name;
+      }
+      if (override) {
+        console.warn(
+          `fail to add store: exist store name [${name}], store will be override`
+        );
+      } else {
+        key = `${name}_${getRandomKey()}`;
+      }
+    }
+    storeCollections[key] = store;
+    if (mobxId) {
+      hook.mstMap.set(store, mobxId);
+    }
+    hook.emit(HOOK_EVENT.ON_ADD, {
+      name: key,
+      store,
+      mobxId,
+    });
+    return key;
+  });
+
+  hook.sub(HOOK_EVENT.DELETE_STORE, (name) => {
+    if (typeof name === "string") {
+      const store = storeCollections[name];
+      delete storeCollections[name];
+      if (store) {
+        hook.emit(HOOK_EVENT.ON_DELETE, {
+          name,
+          store,
+        });
+      }
+      return;
+    } else if (typeof name === "object") {
+      const keys = Object.keys(storeCollections);
+      keys.forEach((key) => {
+        if (storeCollections[key] === name) {
+          delete storeCollections[key];
+          hook.emit(HOOK_EVENT.ON_DELETE, {
+            name: key,
+            store: name,
+          });
+        }
+      });
+      return;
+    }
+    console.warn("[unregisterSingleStore] name must be string or object");
+  });
 }
