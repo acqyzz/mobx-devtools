@@ -106,7 +106,7 @@ importers:
       mobx-react-lite: ^4.0.5
       mobx-state-tree: ^5.4.1
       patch-obj: workspace:*
-      postcss: ^8.0.1
+      postcss: ^8.1.0
       react: ^18.2.0
       react-dom: ^18.2.0
       style-loader: ^3.3.3
@@ -173,6 +173,7 @@ importers:
       less-loader: ^11.1.3
       mitt: ^3.0.1
       mobx: 4.0.0
+      mobx-devtools-inspector: workspace:*
       mobx-react-lite: ^2.0.0
       patch-obj: workspace:*
       postcss: ^8.0.1
@@ -187,7 +188,9 @@ importers:
     dependencies:
       '@ant-design/icons': 5.3.3_biqbaboplfbrettd7655fr4n2y
       mitt: 3.0.1
+      mobx-devtools-inspector: link:../../packages/mobx-devtools-inspector
       mobx-react-lite: 2.2.2_nyxjjr5doja7itryw6gi55twju
+      patch-obj: link:../../packages/patch-obj
     devDependencies:
       '@babel/core': 7.24.0
       '@babel/plugin-proposal-class-properties': 7.18.6_@babel+core@7.24.0
@@ -207,7 +210,6 @@ importers:
       less: 4.2.0
       less-loader: 11.1.4_less@4.2.0+webpack@5.90.3
       mobx: 4.0.0
-      patch-obj: link:../../packages/patch-obj
       postcss: 8.4.36
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -240,7 +242,9 @@ importers:
       less-loader: ^11.1.3
       mitt: ^3.0.1
       mobx: ^5.0.0
+      mobx-devtools-inspector: workspace:*
       mobx-react-lite: ^2.0.0
+      mobx-state-tree: ^3
       patch-obj: workspace:*
       postcss: ^8.0.1
       react: ^18.2.0
@@ -254,7 +258,10 @@ importers:
     dependencies:
       '@ant-design/icons': 5.3.3_biqbaboplfbrettd7655fr4n2y
       mitt: 3.0.1
+      mobx-devtools-inspector: link:../../packages/mobx-devtools-inspector
       mobx-react-lite: 2.2.2_hhrvzjuciomdppy7ff6vnabs2a
+      mobx-state-tree: 3.17.3_mobx@5.15.7
+      patch-obj: link:../../packages/patch-obj
     devDependencies:
       '@babel/core': 7.24.0
       '@babel/plugin-proposal-class-properties': 7.18.6_@babel+core@7.24.0
@@ -274,7 +281,6 @@ importers:
       less: 4.2.0
       less-loader: 11.1.4_less@4.2.0+webpack@5.90.3
       mobx: 5.15.7
-      patch-obj: link:../../packages/patch-obj
       postcss: 8.4.36
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0

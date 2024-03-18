@@ -41,6 +41,9 @@
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "mitt": "^3.0.1",
-    "mobx-react-lite": "^2.0.0"
+    "mobx-react-lite": "^2.0.0",
+    "mobx-devtools-inspector": "workspace:*",
+    "mobx-state-tree": "^3",
+    "patch-obj": "workspace:*"
   }
 }

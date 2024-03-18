@@ -1,9 +1,5 @@
 import { action, computed, observable } from "mobx";
-import {
-  updateState,
-  addArrayItem,
-  removeArrayItem,
-} from "../../../../packages/extension/src/utils/patch";
+import { updateState, removeItem, addItem } from "patch-obj";
 import { userStore } from "./user";
 import { productStore } from "./product";
 import { messageStore, messageStore2 } from "./message";
@@ -22,12 +18,10 @@ class StateStore {
 
   @computed
   get curState() {
+    if (!this.allState[this.currentStateName]) {
+      return null;
+    }
     return this.allState[this.currentStateName];
-  }
-
-  @computed
-  get stateNames() {
-    return Object.keys(this.allState);
   }
 
   @action
@@ -39,6 +33,11 @@ class StateStore {
     console.warn("updateCurrentState, unknown state name", name);
   };
 
+  @computed
+  get stateNames() {
+    return Object.keys(this.allState);
+  }
+
   @action
   updateState = (data: { value: any; path: string[] }) => {
     const curState = this.allState[this.currentStateName];
@@ -47,11 +46,11 @@ class StateStore {
   @action
   onRemoveArrayItem = (path: string[]) => {
     const curState = this.allState[this.currentStateName];
-    removeArrayItem(curState, path);
+    removeItem(curState, path);
   };
   @action
   onAddArrayItem = (data: { value: any; path: string[] }) => {
-    addArrayItem(this.curState, data);
+    addItem(this.curState, data);
   };
 }
 

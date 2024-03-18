@@ -1,4 +1,5 @@
 import { action, observable } from "mobx";
+import { registerSingleStore } from "mobx-devtools-inspector";
 
 class ProductStore {
   @observable
@@ -14,3 +15,5 @@ class ProductStore {
 }
 
 export const productStore = new ProductStore();
+
+registerSingleStore("productStore", productStore);

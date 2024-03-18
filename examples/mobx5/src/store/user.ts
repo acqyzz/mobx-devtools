@@ -1,5 +1,6 @@
 import { action, observable } from "mobx";
 import { messageStore } from "./message";
+import { registerSingleStore } from "mobx-devtools-inspector";
 
 class UserStore {
   @observable
@@ -440,6 +441,46 @@ class UserStore {
   @observable
   friendList = [];
 
+  @observable
+  age = 10;
+
+  @observable
+  map = new Map(
+    Object.entries({
+      key1: "value1",
+      key2: 2323,
+      arr: [
+        {
+          key1: 1,
+          key2: 2,
+        },
+        {
+          key3: 3,
+          key4: 4,
+        },
+      ],
+      set: new Set([1, 2, 3, 4]),
+      map: new Map(
+        Object.entries({
+          key1: "value1",
+          key2: 2323,
+        })
+      ),
+    })
+  );
+
+  @observable
+  set = new Set([
+    {
+      key1: 1,
+      key2: 2,
+    },
+    {
+      key3: 3,
+      key4: 4,
+    },
+  ]);
+
   @action
   func1 = async () => {
     return null;
@@ -449,6 +490,23 @@ class UserStore {
   func2 = async () => {
     return false;
   };
+
+  @action
+  addFriend = async (id: string) => {
+    this.friendList.push(id);
+  };
+
+  @action
+  addAge = async () => {
+    this.age++;
+  };
 }
 
 export const userStore = new UserStore();
+
+registerSingleStore("userStore", userStore);
+
+setInterval(() => {
+  userStore.addFriend((Math.random() + "").slice(-6));
+  userStore.addAge();
+}, 10000);
